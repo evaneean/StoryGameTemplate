@@ -1,0 +1,19 @@
+body { 
+color: white;
+background-color: rgb(255, 125, 125);
+font-family:'Times New Roman', Times, serif;
+}
+
+text {
+color: white;
+
+}
+
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: #e48a8a;
+    padding: 40px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }

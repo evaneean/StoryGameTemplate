@@ -1,0 +1,15 @@
+body { 
+color: white;
+background-color: rgb(0, 88, 147);
+font-family:'Times New Roman', Times, serif;
+}
+
+
+.secondtainer {
+    max-width: 700px;
+    margin: 30px auto;
+    background-color: rgb(110, 110, 249);
+    padding: 20px;
+    border-radius: 3px;
+    box-shadow: inset;
+}
