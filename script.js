@@ -16,40 +16,30 @@ let currentScene = "backyard";
 const scenes = {
   // See "backyard" for the first example
   backyard: {
-    title: "Location: Backyard",
-    character: "Interviewee:Grandma",
-    text: "Text: well what I remember happening is that Darcie went inside to play with her pretend kitchen, I heard her neighbor mention he was really hungry, and the dog ran around really quickly",
+    title: "Location: Classroom",
+    character: "You",
+    text: "Text: Currently, you sit in your classroom. Where do you want to go?",
     // you can choose how many choices to include
     // each choice can have text, an action, and/or nextScene
     choices: [
       {
-        text: "Chase after the dog (-10 HP)",
-        action: function () {
-          updateHealth(-10);
-        },
-        nextScene: "entrance"
+        text: "Go to the Janitor's room",
+        nextScene: "janitor"
       },
       {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
+        text: "Go to the Nurse's room",
+        nextScene: "nurse"
       },
-      {
-          text: "Pick up the brass key",
-          action: function () {
-            pickUpItem("brass key");
-          },
-          nextScene: "hallway"
-      }
     ]
   },
 
-  entrance: {
-    title: "Location: Entrance",
-    character: "Interviewee:Neighbor",
-    text: "well what I remember...",
+  janitor: {
+    title: "Janitor's Room",
+    text: "",
     choices: [
       {
-        text: "Ask about the dog",
+        text: "Try to open the manhole",
+
         nextScene: "backyard"
       },
          {
@@ -59,9 +49,11 @@ const scenes = {
     ]
   },
 
-  hallway: {
-    title: "The Hallway",
-    text: "The hallway is dark and silent.",
+  nurse: {
+    title: "Nurse's Room",
+    text: "As you enter the room, you notice a man in a wheelchair.",
+    character: "Steven",
+    text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons.",
     choices: [
       {
         text: "backyard",
