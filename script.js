@@ -10,12 +10,12 @@
 // --------------------------------------------------
 
 // First, we create a variable for the current scene being displayed
-let currentScene = "backyard";
+let currentScene = "classroom";
 
 // Then, we create an object that stores the data for each scene,
 const scenes = {
   // See "backyard" for the first example
-  backyard: {
+  classroom: {
     title: "Location: Classroom",
     character: "You",
     text: "Text: Currently, you sit in your classroom. Where do you want to go?",
@@ -35,16 +35,16 @@ const scenes = {
 
   janitor: {
     title: "Janitor's Room",
-    text: "",
+    character: "Janitor",
+    text: "I think this manhole leads outside of the school. I can't open it, though. There may be a key around here somewhere, but not in here.",
     choices: [
       {
         text: "Try to open the manhole",
-
-        nextScene: "backyard"
+        action: openManhole,
       },
          {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
+        text: "Return to the classroom",
+        nextScene: "classroom"
       }
     ]
   },
@@ -53,18 +53,18 @@ const scenes = {
     title: "Nurse's Room",
     text: "As you enter the room, you notice a man in a wheelchair.",
     character: "Steven",
-    text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons.",
+    text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons. Please take these items. Hopefully, they will help you on your journey.",
     choices: [
       {
-        text: "backyard",
-        nextScene: "lockedDoor"
+        text: "Janitor's Room",
+        nextScene: "janitor"
       }
     ]
   },
 
-   lockedDoor: {
-    title: "The Locked Door",
-    text: "The door handle doesn't move.",
+   underground: {
+    title: "B1: Underground Passage",
+    text: "You walk through the underground tunnels beneath the school. For now, you find an exit and climb a ladder to find yourself back in the building, on the other wing.",
     choices: [
       {
         text: "Try to open it",
@@ -72,7 +72,7 @@ const scenes = {
       },
       {
         text: "Go back",
-        nextScene: "backyard"
+        nextScene: "classroom"
       }
     ]
   },
@@ -208,3 +208,10 @@ function unlockDoor() {
   }
 }
 
+function openManhole() {
+  if(inventory.includes("manhole key")) {
+    updateScene("underground");
+  } else {
+    messageDisplay.textContent = "The manhole is locked.";
+  }
+}
