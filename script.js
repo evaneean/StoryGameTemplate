@@ -51,15 +51,19 @@ const scenes = {
 
   nurse: {
     title: "Nurse's Room",
-    text: "As you enter the room, you notice a man in a wheelchair.",
     character: "Steven",
     text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons. Please take these items. Hopefully, they will help you on your journey.",
-    action: pickUpItem("manhole key"),
     choices: [
       {
         text: "Janitor's Room",
         nextScene: "janitor"
-      }
+      },
+      {
+        text: "Pick up the items (non negotiable)",
+        action: function () {
+          pickUpItem("manhole key");
+        },
+      },
     ]
   },
 
@@ -88,11 +92,8 @@ const scenes = {
 
   french: {
     title: "French Classroom",
-    Character: "You, Other Dude",
+    character: "You, Other Dude",
     text: "You enter the French classroom. You meet another student! He joins you and gives you some key he found off the ground.",
-    action: pickUpItem("gym key"),
-    action: pickUpItem("Other Student (not an item)"),
-    action: pickUpItem("science key"),
    choices: [
       {
         text: "Go to the Gym",
@@ -106,15 +107,25 @@ const scenes = {
         text: "Go to the Roof",
         action: unlockRoof,
       },
+      {
+        text: "Pick up the items (non negotiable)",
+         action: function () {
+          pickUpItem("gym key");
+         },
+         action: function() {
+          pickUpItem("Other Student (not an item)");
+         },
+        action: function () { 
+          pickUpItem("science key");
+      },
+    },
    ]
   },
 
   science: {
     title: "Science Classroom",
-    Character: "You, Other Dude(?)",
+    character: "You, Other Dude(?)",
     text: "You enter the Science classroom. The wheelchair guy shows up again to dump some exposition and give you some items. Text is temporary.",
-    action: pickUpItem("locker key"),
-    action: pickUpItem("cookie parchment paper"),
     choices: [
       {
         text: "Go to the Gym",
@@ -128,16 +139,26 @@ const scenes = {
         text: "Go to the Roof",
         action: unlockRoof,
       },
+      {
+        text: "pick up the items (non negotiable)",
+        action: function () {
+          pickUpItem("gym key");
+        },
+      },
+      {
+        text:"pick up the cookie paper (optional)",
+        action: function () {
+          pickUpItem("cookie parchment paper");
+        },
+      }
     ]
 
   },
 
   gym: {
     title: "Gym",
-    Character: "You, Other Dude",
+    character: "You, Other Dude",
     text: "There's like a huge cookie demon in the gym. You send out your other dude to fight it and he grabs a huge sword off the center of the cookie demon and kills it. Congrats. There's also a locker nearby that the monster dropped a key for.",
-    action: pickUpItem("locker key"),
-    action: pickUpItem("Cookie Sword"),
     choices: [
      {
         text: "Go to the French Classroom",
@@ -154,15 +175,26 @@ const scenes = {
       {
         text: "Try to open the locker",
         action: unlockLocker,
-      }
+      },
+      {
+        text: "Pick up the items (non negotiable)",
+         action: function() {
+          pickUpItem("locker key");
+         },
+      },
+      {
+        text: "Pick up the sword (non negotiable)",
+          action: function() {
+            pickUpItem("sword");
+          },
+      },
     ]
   },
 
   locker: {
     title: "Locker",
-    Character: "You, Other Dude",
+    character: "You, Other Dude",
     text: "You open the locker and find a key to the roof. You're really getting tired of this puzzle nonsense.",
-    action: pickUpItem("roof key"),
      choices: [
      {
         text: "Go to the French Classroom",
@@ -176,12 +208,18 @@ const scenes = {
         text: "Go to the Science Classroom",
         action: unlockScienceRoom,
       },
+      {
+        text: "pick up the items (non negotiable)",
+         action: function () { 
+          pickUpItem("roof key");
+      },
+    },
     ]
   },
 
   roof: {
     title: "Roof",
-    Character: "You, Other Dude",
+    character: "You, Other Dude",
     text: "You open the door to the roof and find a ton of cookie cultists circling a cookie demon. The cookie demon speaks telepathically to you and tells you to join it because you're super strong or something.",
     choices: [
       {
@@ -195,11 +233,11 @@ const scenes = {
     ]
   },
 
-  badEnd: {
-    title: "The bad end",
-    text: "You join the cookie demon and become cookie overlords. The other student is eaten by the cookie demon or something. You suck.",
-    action: updatehealth(-100),
-  },
+  // badEnd: {
+  //   title: "The bad end",
+  //   text: "You join the cookie demon and become cookie overlords. The other student is eaten by the cookie demon or something. You suck.",
+  //   action: updatehealth(-100),
+  // },
 
    solution: {
     title: "The solution",
@@ -312,7 +350,9 @@ const messageDisplay = document.getElementById("message-display");
 function pickUpItem(itemName) {
     // Add itemName to the inventory array
     // Show the updated inventory on the page
-  inventory.push(itemName);
+    if (!inventory.includes(itemName)) {
+      inventory.push(itemName);
+    }
   inventoryDisplay.textContent = inventory.join(", ");
 }
 
