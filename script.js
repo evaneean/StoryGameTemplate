@@ -54,6 +54,7 @@ const scenes = {
     text: "As you enter the room, you notice a man in a wheelchair.",
     character: "Steven",
     text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons. Please take these items. Hopefully, they will help you on your journey.",
+    action: pickUpItem("manhole key"),
     choices: [
       {
         text: "Janitor's Room",
@@ -67,21 +68,143 @@ const scenes = {
     text: "You walk through the underground tunnels beneath the school. For now, you find an exit and climb a ladder to find yourself back in the building, on the other wing.",
     choices: [
       {
-        text: "Try to open it",
-        action: unlockDoor
+        text: "Go to the French Classroom",
+        nextScene: "french"
       },
       {
-        text: "Go back",
-        nextScene: "classroom"
+        text: "Go to the Gym",
+        action: unlockGym,
+      },
+      {
+        text: "Go to the Science Classroom",
+        action: unlockScienceRoom,
+      },
+      {
+        text: "Go to the Roof",
+        action: unlockRoof,
+      },
+    ]
+  },
+
+  french: {
+    title: "French Classroom",
+    Character: "You, Other Dude",
+    text: "You enter the French classroom. You meet another student! He joins you and gives you some key he found off the ground.",
+    action: pickUpItem("gym key"),
+    action: pickUpItem("Other Student (not an item)"),
+    action: pickUpItem("science key"),
+   choices: [
+      {
+        text: "Go to the Gym",
+        action: unlockGym,
+      },
+      {
+        text: "Go to the Science Classroom",
+        action: unlockScienceRoom,
+      },
+      {
+        text: "Go to the Roof",
+        action: unlockRoof,
+      },
+   ]
+  },
+
+  science: {
+    title: "Science Classroom",
+    Character: "You, Other Dude(?)",
+    text: "You enter the Science classroom. The wheelchair guy shows up again to dump some exposition and give you some items. Text is temporary.",
+    action: pickUpItem("locker key"),
+    action: pickUpItem("cookie parchment paper"),
+    choices: [
+      {
+        text: "Go to the Gym",
+        action: unlockGym,
+      },
+      {
+        text: "Go to the French Classroom",
+        nextScene: "french"
+      },
+      {
+        text: "Go to the Roof",
+        action: unlockRoof,
+      },
+    ]
+
+  },
+
+  gym: {
+    title: "Gym",
+    Character: "You, Other Dude",
+    text: "There's like a huge cookie demon in the gym. You send out your other dude to fight it and he grabs a huge sword off the center of the cookie demon and kills it. Congrats. There's also a locker nearby that the monster dropped a key for.",
+    action: pickUpItem("locker key"),
+    action: pickUpItem("Cookie Sword"),
+    choices: [
+     {
+        text: "Go to the French Classroom",
+        nextScene: "french"
+      },
+      {
+        text: "Go to the Roof",
+        action: unlockRoof,
+      },
+       {
+        text: "Go to the Science Classroom",
+        action: unlockScienceRoom,
+      },
+      {
+        text: "Try to open the locker",
+        action: unlockLocker,
       }
     ]
   },
 
+  locker: {
+    title: "Locker",
+    Character: "You, Other Dude",
+    text: "You open the locker and find a key to the roof. You're really getting tired of this puzzle nonsense.",
+    action: pickUpItem("roof key"),
+     choices: [
+     {
+        text: "Go to the French Classroom",
+        nextScene: "french"
+      },
+      {
+        text: "Go to the Roof",
+        action: unlockRoof,
+      },
+       {
+        text: "Go to the Science Classroom",
+        action: unlockScienceRoom,
+      },
+    ]
+  },
+
+  roof: {
+    title: "Roof",
+    Character: "You, Other Dude",
+    text: "You open the door to the roof and find a ton of cookie cultists circling a cookie demon. The cookie demon speaks telepathically to you and tells you to join it because you're super strong or something.",
+    choices: [
+      {
+        text: "Join the cookie demon",
+        nextScene: "badEnd",
+      },
+      { 
+        text: "Fight the cookie demon",
+        nextScene: "solution",
+      },
+    ]
+  },
+
+  badEnd: {
+    title: "The bad end",
+    text: "You join the cookie demon and become cookie overlords. The other student is eaten by the cookie demon or something. You suck.",
+    action: updatehealth(-100),
+  },
+
    solution: {
     title: "The solution",
-    text: "You solved the mystery!",
-    
-  }
+    text: "You and the other dude start beating on the cookie demon. After a long fight, it's defeated by the sword, and cookiespace fades from existence on this plane, freeing the school. You win!",
+  },
 };
 
 // --------------------------------------------------
@@ -214,4 +337,37 @@ function openManhole() {
   } else {
     messageDisplay.textContent = "The manhole is locked.";
   }
+}
+
+function unlockScienceRoom() {
+  if(inventory.includes("science key")) {
+    updateScene("science");
+  } else {
+    messageDisplay.textContent = "The science classroom is locked.";
+  }
+}
+
+function unlockGym() {
+  if(inventory.includes("gym key")) {
+    updateScene("gym");
+  } else {
+    messageDisplay.textContent = "The gym is locked.";
+  }
+}
+
+function unlockRoof() {
+ if(inventory.includes("roof key")) {
+  updateScene("roof");
+ } else {
+  messageDisplay.textContent = "The roof is locked.";
+ }
+}
+
+function unlockLocker() {
+  if(inventory.includes("locker key")) {
+    messageDisplay.textContent = "You opened the locker and found a key to the roof";
+    pickUpItem("roof key");
+} else {
+  messageDisplay.textContent = "The locker is locked. This isn't possible because you just got the key...";
+}
 }
