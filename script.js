@@ -55,6 +55,9 @@ const scenes = {
     text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons. Please take these items. Hopefully, they will help you on your journey. I will also donate to you the Cookie Snacking Program. Please use it to fight against these cookie demons.",
     choices: [
       {
+         action: function () {
+          updateBatter(100);
+        },
         text: "Janitor's Room",
         nextScene: "janitor"
       },
@@ -109,7 +112,7 @@ const scenes = {
 
    underground: {
     title: "B1: Underground Passage",
-    text: "You walk through the underground tunnels beneath the school. At the end, you find and climb a ladder only to find yourself back in the building, on the other wing. This totally kills your mood",
+    text: "You walk through the underground tunnels beneath the school. At the end, you find and climb a ladder only to find yourself back in the building, on the other wing. This totally kills your mood.",
     choices: [
       {
         text: "Go to the French Classroom",
@@ -209,6 +212,9 @@ const scenes = {
      {
     text: "Attack the Cookie Hydra",
     nextScene: "victory2",
+    action: function () {
+      updateBatter(-30);
+    }
      },
      {
       text: "Try to escape the gym",
@@ -358,7 +364,7 @@ function updateHealth(amount) {
 // This refreshes the health display
 updateHealth(0);
 
-let batter = 100;
+let batter = 0;
 
 const batterDisplay = document.getElementById("batter-display");
 
