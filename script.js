@@ -52,7 +52,7 @@ const scenes = {
   nurse: {
     title: "Nurse's Room",
     character: "Steven",
-    text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons. Please take these items. Hopefully, they will help you on your journey.",
+    text:"My name is Steven. I was brought here to assist you in your fight against the cookie demons. Please take these items. Hopefully, they will help you on your journey. I will also donate to you the Cookie Snacking Program. Please use it to fight against these cookie demons.",
     choices: [
       {
         text: "Janitor's Room",
@@ -64,12 +64,52 @@ const scenes = {
           pickUpItem("manhole key");
         },
       },
+      {
+        text: "Refresh Batter Points (optional)",
+        action: function () {
+          updateBatter(100);
+        },
+      }
     ]
+  },
+
+  fight1: {
+   title: "B1: Underground Passage",
+   text: "You walk through the tunnel underground. Everything is dark, and something like water starts to rise underfoot the farther you go. ??? This isn’t water… It’s milk! A cookie demon is attacking you! What will you do?",
+   choices: [
+     {
+      text: "Fight the cookie demon",
+      action: function () {
+        updateBatter(-20);
+      },
+      nextScene: "victory1"
+     },
+     {
+      text: "Run away",
+      nextScene: "badend1"
+     },
+   ]
+  },
+
+  badend1: {
+  title: "You Lose!",
+  text: "You keep running from the approaching cookie demon behind you. However, the milk keeps rising… Eventually, you are totally submerged in the milk, as you start to drown. Hey… this tastes like almonds. Aren’t you allergic to almonds? Wow, you were a goner from the start.",
+  },
+
+  victory1: {
+   title: "Fight!",
+   text: "You stop running and turn around to face the cookie demon. It babbles out something that vaguely sounds like “almond”. Now that you notice it, this tunnel smells like almond.. Which you’re allergic to. You have to stop this fast! You punch in a button on your Cookie Snacking Program’s panel. Out from your computer springs a huge maw, like that of a whale! It swallows the cookie demon whole, as the milk starts to evaporate. You breathe a sigh of relief and start walking again.",
+  choices: [
+    {
+      text: "Keep walking through the underground passage",
+      nextScene: "underground"
+    },
+  ]
   },
 
    underground: {
     title: "B1: Underground Passage",
-    text: "You walk through the underground tunnels beneath the school. For now, you find an exit and climb a ladder to find yourself back in the building, on the other wing.",
+    text: "You walk through the underground tunnels beneath the school. At the end, you find and climb a ladder only to find yourself back in the building, on the other wing. This totally kills your mood",
     choices: [
       {
         text: "Go to the French Classroom",
@@ -93,7 +133,7 @@ const scenes = {
   french: {
     title: "French Classroom",
     character: "You, Other Dude",
-    text: "You enter the French classroom. You meet another student! He joins you and gives you some key he found off the ground.",
+    text: "You enter the French classroom. You meet another student, whose name is Darren! He joins you and gives you some key he found off the ground.",
    choices: [
       {
         text: "Go to the Gym",
@@ -125,7 +165,7 @@ const scenes = {
   science: {
     title: "Science Classroom",
     character: "You, Other Dude(?)",
-    text: "You enter the Science classroom. The wheelchair guy shows up again to dump some exposition and give you some items. Text is temporary.",
+    text: "You enter the Science classroom. The wheelchair guy shows up again. (Dialogue)  Good. It seems that you’ve already made use of your Cookie Snacking Program that I’ve given you. Let me refresh your batter points, and give you some items that will help you.",
     choices: [
       {
         text: "Go to the Gym",
@@ -150,7 +190,13 @@ const scenes = {
         action: function () {
           pickUpItem("cookie parchment paper");
         },
-      }
+      },
+       {
+        text: "Refresh Batter Points (optional)",
+        action: function () {
+          updateBatter(100);
+        },
+      },
     ]
 
   },
@@ -158,62 +204,43 @@ const scenes = {
   gym: {
     title: "Gym",
     character: "You, Other Dude",
-    text: "There's like a huge cookie demon in the gym. You send out your other dude to fight it and he grabs a huge sword off the center of the cookie demon and kills it. Congrats. There's also a locker nearby that the monster dropped a key for.",
+    text: "There's like a huge cookie demon in the gym. The monster lunges. You summon the maw from your Cookie Snacking Program, and it snaps off one of the monster’s heads right as it gets close to you! The yeast monster reels back in terror. Almost immediately after, though, where it lost its head starts bubbling, as two more grow back from the same spot. ",
     choices: [
      {
-        text: "Go to the French Classroom",
-        nextScene: "french"
-      },
-      {
-        text: "Go to the Roof",
-        action: unlockRoof,
-      },
-       {
-        text: "Go to the Science Classroom",
-        action: unlockScienceRoom,
-      },
-      {
-        text: "Try to open the locker",
-        action: unlockLocker,
-      },
-      {
-        text: "Pick up the items (non negotiable)",
-         action: function() {
-          pickUpItem("locker key");
-         },
-      },
-      {
-        text: "Pick up the sword (non negotiable)",
-          action: function() {
-            pickUpItem("sword");
-          },
-      },
+    text: "Attack the Cookie Hydra",
+    nextScene: "victory2",
+     },
+     {
+      text: "Try to escape the gym",
+      nextScene: "badend2",
+     },
     ]
   },
 
-  locker: {
-    title: "Locker",
-    character: "You, Other Dude",
-    text: "You open the locker and find a key to the roof. You're really getting tired of this puzzle nonsense.",
-     choices: [
+  badend2:{
+  title: "You Lose!",
+  text: "Stirred by fear, you both decide to split from the gym and go somewhere else. As you run to the door, three of the cookie monster’s dough heads wrap around the exit and lunge at you. Maybe running away wasn’t such a good idea."
+  },
+
+  victory2: {
+    title: "You Win!",
+    text: "Suddenly, a plan comes to mind. You tell Darren to run in and grab whatever’s stuck in the cookie monster after you draw out its attention. As you run to the side, the heads start to follow you, leaving a blind spot where the hilt is exposed. Darren runs in and grabs the hilt, pulling it out in one clean motion. Using your Cookie Summoning Program, you activate a large group of mandibles that bite off each of the dough monster’s heads. While it regenerates, Darren swings the Cookie Sword, cleaving the dough monster in half with one clean cut. You Win!",
+    choices: [
      {
-        text: "Go to the French Classroom",
-        nextScene: "french"
+        text: "pick up the items (non negotiable)",
+        action: function () {
+          pickUpItem("locker key");
+          pickUpItem("cookie sword");
+        },
       },
+      {
+        text: "Open the locker",
+        action: unlockLocker,
+      },    
       {
         text: "Go to the Roof",
         action: unlockRoof,
       },
-       {
-        text: "Go to the Science Classroom",
-        action: unlockScienceRoom,
-      },
-      {
-        text: "pick up the items (non negotiable)",
-         action: function () { 
-          pickUpItem("roof key");
-      },
-    },
     ]
   },
 
@@ -233,11 +260,10 @@ const scenes = {
     ]
   },
 
-  // badEnd: {
-  //   title: "The bad end",
-  //   text: "You join the cookie demon and become cookie overlords. The other student is eaten by the cookie demon or something. You suck.",
-  //   action: updatehealth(-100),
-  // },
+   badEnd: {
+   title: "The bad end",
+    text: "You join the cookie demon and become cookie overlords. The other student is eaten by the cookie demon or something. You suck.",
+   },
 
    solution: {
     title: "The solution",
@@ -332,6 +358,17 @@ function updateHealth(amount) {
 // This refreshes the health display
 updateHealth(0);
 
+let batter = 100;
+
+const batterDisplay = document.getElementById("batter-display");
+
+function updateBatter(amount) {
+  batter += amount;
+  batterDisplay.textContent = batter;
+}
+
+updateBatter(0);
+
 // --------------------------------------------------
 // INVENTORY
 // Read through the comments below to see what this section does
@@ -373,7 +410,7 @@ function unlockDoor() {
 
 function openManhole() {
   if(inventory.includes("manhole key")) {
-    updateScene("underground");
+    updateScene("fight1");
   } else {
     messageDisplay.textContent = "The manhole is locked.";
   }
