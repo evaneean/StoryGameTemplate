@@ -19,21 +19,27 @@ color: white;
   }
 
   .heading {
-
-
-
-
+  text-align: center;
+  background-color: #bc913c;
+  font-weight: 300;
+  padding: 8px;
   }
 
   .card { 
-
-
-
+  text-align: center;
+  padding: 10px;
+  border: rgb(90, 52, 5);
+  border-width: 10px;
+  border-style: dashed;
   }
 
 
   .id { 
-
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: darkorange;
+  margin: 6px auto;
+  border-radius: 5px;
 
     
   }

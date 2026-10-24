@@ -1,0 +1,30 @@
+body {
+background-color: rgb(10, 39, 3);
+}
+
+ .heading {
+  text-align: center;
+  background-color: #bc913c;
+  font-weight: 300;
+  padding: 8px;
+  }
+
+  .card { 
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  border: rgb(161, 94, 12);
+  border-width: 10px;
+  border-style: groove;
+  }
+
+
+  #id {
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: darkorange;
+  margin: 6px auto;
+  border-radius: 5px;
+
+    
+  }
